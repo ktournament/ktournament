@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle del Evento</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="overlay">
+      <h1 id="event-title">Evento</h1>
+    </div>
+  </header>
+
+  <main>
+    <section class="event-detail">
+      <p id="event-date"></p>
+      <p id="event-description"></p>
+      <a href="index.html">← Volver a la lista de torneos</a>
+    </section>
+  </main>
+
+  <script>
+    // Obtener ID del evento desde la URL
+    const params = new URLSearchParams(window.location.search);
+    const eventId = params.get('id');
+
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/<ID-DE-LA-HOJA>/pub?output=csv';
+
+    Papa.parse(sheetURL, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        const events = results.data;
+        const event = events.find(e => e.ID === eventId);
+        if(event){
+          document.getElementById('event-title').textContent = event.Title;
+          document.getElementById('event-date').textContent = "Fecha: " + event.Date;
+          document.getElementById('event-description').textContent = event.Description || "";
+        } else {
+          document.getElementById('event-title').textContent = "Evento no encontrado";
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -5,6 +5,35 @@
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
 }
+.events a {
+    text-decoration: none; /* Quita el subrayado */
+    color: inherit;        /* Hereda el color del texto */
+    display: block;        /* Hace que todo el <li> sea clicable */
+    padding: 10px;         /* Opcional: espacio interno para que sea más fácil clicar */
+    transition: background 0.3s;
+}
+
+.events a:hover {
+    background: rgba(0,0,0,0.05); /* Efecto al pasar el ratón */
+}
+
+.event-detail a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 60px;
+    margin-left: 40px;
+    background-color: #1e90ff; /* Azul moderno */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.event-detail a:hover {
+    background-color: #0d6efd; /* Azul más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de elevación */
+}
 
 /* Fondo y header */
 header {

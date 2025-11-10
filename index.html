@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ktournament | home</title>
+    <title>Ktournament | Home</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -15,32 +15,37 @@
     </header>
 
     <main>
-<section class="events">
-    <h2>Próximos Torneos</h2>
-    <ul id="event-list"></ul>
-</section>
+        <section class="events">
+            <h2>Próximos Torneos</h2>
+            <ul id="event-list"></ul>
+        </section>
 
-<script>
-const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSD669plzeoZYAlPew2_6sS5PrxJSDDewMZBCuNZATSfa8qW9ujkFndwIREbvb5MISfqLEszlM7o7z/pub?gid=1652542252&single=true&output=csv';
-const eventList = document.getElementById('event-list');
+        <script>
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSD669plzeoZYAlPew2_6sS5PrxJSDDewMZBCuNZATSfa8qW9ujkFndwIREbvb5MISfqLEszlM7o7z/pub?gid=1652542252&single=true&output=csv';
+        const eventList = document.getElementById('event-list');
 
-Papa.parse(sheetURL, {
-    download: true,
-    header: true,
-    complete: function(results) {
-        const events = results.data;
-        events.forEach(e => {
-            if(e.Title){ // Evitar filas vacías
-                const li = document.createElement('li');
-                li.innerHTML = `<h3>${e.Title}</h3><p>Fecha: ${e.Date}</p><p>${e.Description || ''}</p>`;
-                eventList.appendChild(li);
+        Papa.parse(sheetURL, {
+            download: true,
+            header: true,
+            complete: function(results) {
+                const events = results.data;
+                events.forEach(e => {
+                    if(e.Title){ // Evitar filas vacías
+                       const li = document.createElement('li');
+                        li.innerHTML = `
+                            <a href="${e.FormURL}" target="_blank">
+                                <h3>${e.Title}</h3>
+                                <p>Fecha: ${e.Date}</p>
+                                <p>${e.Description || ''}</p>
+                            </a>
+                        `;
+                        eventList.appendChild(li);
+
+                    }
+                });
             }
         });
-    }
-});
-</script>
-
+        </script>
     </main>
-
 </body>
 </html>
